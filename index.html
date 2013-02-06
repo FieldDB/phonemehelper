@@ -82,7 +82,7 @@ dd:after {
 
 <header>
 <h1>environment finder</h1>
-<p>Type the phones whose environments you want to compare:</p>
+<p>Type the phones whose environments you want to compare into the two boxes, and press <code>enter</code>.</p>
 </header>
 
 <div id=main>
@@ -90,18 +90,92 @@ dd:after {
 <div id=data>
 <h2>wordlist</h2>
 <dl>
-<dt>pasak</dt> <dd>beam</dd>
-<dt>agal</dt> <dd>complain</dd>
-<dt>giray</dt> <dd>finger</dd>
-<dt>malasag</dt> <dd>ghost</dd>
-<dt>buntok</dt> <dd>head</dd>
-<dt>madiget</dt> <dd>rough</dd>
-<dt>lakop</dt> <dd>sky</dd>
-<dt>kagi</dt> <dd>sound</dd>
-<dt>gadis</dt> <dd>thumb</dd>
-<dt>madiket</dt> <dd>young woman</dd>
+<dt>mayr</dt>
+<dd>mother</dd>
+<dt>hayr</dt>
+<dd>father</dd>
+<dt>eġbayr</dt>
+<dd>brother</dd>
+<dt>doostr</dt>
+<dd>daughter</dd>
+<dt>kin</dt>
+<dd>woman</dd>
+<dt>im</dt>
+<dd>my</dd>
+<dt>anown</dt>
+<dd>name</dd>
+<dt>outt</dt>
+<dd>8</dd>
+<dt>inn</dt>
+<dd>9</dd>
+<dt>tas</dt>
+<dd>10</dd>
+<dt>ach</dt>
+<dd>eye</dd>
+<dt>armoonk</dt>
+<dd>elbow</dd>
+<dt>tsoonk</dt>
+<dd>knee</dd>
+<dt>vot</dt>
+<dd>foot</dd>
+<dt>sirt</dt>
+<dd>heart</dd>
+<dt>kaashi</dt>
+<dd>skin</dd>
+<dt>mook</dt>
+<dd>mouse</dd>
+<dt>kov</dt>
+<dd>cow</dd>
+<dt>shoon</dt>
+<dd>dog</dd>
+<dt>tari</dt>
+<dd>year</dd>
+<dt>amis</dt>
+<dd>month</dd>
+<dt>amaṙ</dt>
+<dd>summer</dd>
+<dt>ǰerm</dt>
+<dd>warm</dd>
+<dt>looys</dt>
+<dd>light</dd>
+<dt>howr</dt>
+<dd>flame</dd>
+<dt>heru</dt>
+<dd>far</dd>
+<dt>helowm</dt>
+<dd>I pour</dd>
+<dt>outem</dt>
+<dd>I eat</dd>
+<dt>gitem</dt>
+<dd>I know</dd>
+<dt>get</dt>
+<dd>river</dd>
+<dt>gorç</dt>
+<dd>work </dd>
+<dt>mets</dt>
+<dd>great </dd>
+<dt>untsanot</dt>
+<dd>stranger, unfamiliar</dd>
+<dt>meṙaç</dt>
+<dd>dead</dd>
+<dt>miǰin</dt>
+<dd>middle</dd>
+<dt>ayl</dt>
+<dd>other</dd>
+<dt>nor</dt>
+<dd>new</dd>
+<dt>durr</dt>
+<dd>door</dd>
+<dt>toon</dt>
+<dd>house</dd>
+<dt>berri</dt>
+<dd>fertile, carry</dd>
+
 </dl>
+<p>Data from the <a title="Armenian language - Wikipedia, the free encyclopedia" href="http://en.wikipedia.org/wiki/Armenian_language">Armenian language article on Wikipedia</a>. </p>
 </div>
+
+
 
 <ul id=lexicon></ul>
 
@@ -147,9 +221,14 @@ function allTrigrams(words){
   return trigrams.filter(function(tri){ return tri.indexOf('#') != 1 })
 }
 
+function mask(trigram){
+  return trigram[0] + '_' + trigram[2];
+}
+
 function trigramsWith(trigrams, letter){
   // return those of trigrams where the letter is in the middle
-  return trigrams.filter(function(tri){ return tri.indexOf(letter) == 1 }).sort()
+  var trigrams = trigrams.filter(function(tri){ return tri.indexOf(letter) == 1 }).sort()
+  return _.map(trigrams, mask)
 }
 
 function isMiddleOfTrigram(letter, trigram){
