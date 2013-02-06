@@ -18,11 +18,11 @@ header {
   padding: 1em;
 }
 
-header input { 
+input.comparand { 
   text-align:center;
 }
 
-header input, header button { 
+input.comparand { 
   width: 3em; 
   font-size: x-large;
 }
@@ -83,15 +83,12 @@ dd:after {
 <header>
 <h1>environment finder</h1>
 <p>Type the phones whose environments you want to compare:</p>
-<input id=a>
-<input id=b>
-<button id=go>go!</button>
 </header>
 
 <div id=main>
 
 <div id=data>
-<h2>Data</h2>
+<h2>wordlist</h2>
 <dl>
 <dt>pasak</dt> <dd>beam</dd>
 <dt>agal</dt> <dd>complain</dd>
@@ -109,12 +106,13 @@ dd:after {
 <ul id=lexicon></ul>
 
 <div class=environment id=envA>
-<h2>Environments of phone A</h2>
+<h2>environments of: <input placeholder=x class=comparand id=a></h2>
+
 <ol class=phone></ol>
 </div><!-- #envA -->
 
 <div class=environment id=envB>
-<h2>Environments of phone B</h2>
+<h2>environments of: <input placeholder=y class=comparand id=b></h2>
 <ol class=phone></ol>
 </div><!-- #envB -->
 
@@ -175,22 +173,24 @@ app.words = extractWords();
 
 app.trigrams = allTrigrams(app.words);
 
-$('#go').click(function(){
-  var a = $('#a').val();
-  var b = $('#b').val();
+$('.comparand').keyup(function(ev){
+  if(ev.which == 13){
+    var a = $('#a').val();
+    var b = $('#b').val();
 
-  var trigramsA = trigramsWith(app.trigrams, a);
-  var trigramsB = trigramsWith(app.trigrams, b);
+    var trigramsA = trigramsWith(app.trigrams, a);
+    var trigramsB = trigramsWith(app.trigrams, b);
 
-  $('.environment ol.phone').html('');
+    $('.environment ol.phone').html('');
  
-  $.each(trigramsA, function(i,tri){
-    $('#envA ol').append('<li>' + tri + '</li>')
-  })
+    $.each(trigramsA, function(i,tri){
+      $('#envA ol').append('<li>' + tri + '</li>')
+    })
 
-  $.each(trigramsB, function(i,tri){
-    $('#envB ol').append('<li>' + tri + '</li>')
-  })
+    $.each(trigramsB, function(i,tri){
+      $('#envB ol').append('<li>' + tri + '</li>')
+    })
+  }
 
 })
 
